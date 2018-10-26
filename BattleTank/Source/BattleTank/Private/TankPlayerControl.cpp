@@ -5,9 +5,9 @@
 void ATankPlayerControl::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
+
 	GetControlledTank();
-	UE_LOG(LogTemp, Warning, TEXT("%s is the controlled pawn"), *(GetControlledTank()->GetName()));
+	UE_LOG(LogTemp, Warning, TEXT("%s is the player's controlled pawn"), *(GetControlledTank()->GetName()));
 }
 
 ATank* ATankPlayerControl::GetControlledTank() const
