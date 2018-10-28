@@ -17,6 +17,7 @@ void ATankPlayerControl::Tick(float DeltaTime)
 	//Super
 	Super::Tick(DeltaTime);
 	AimTowardsCrosshair();
+	//UE_LOG(LogTemp, Warning, TEXT("Player Tank is at: %s"), *(GetControlledTank()->GetActorLocation().ToString()));
 }
 	
 
@@ -32,8 +33,8 @@ void ATankPlayerControl::AimTowardsCrosshair()
 	FVector OutHitLocation; // Out parameter
 	if (GetSightRayHitLocation(OutHitLocation)) // Has "side-effect", is going to line trace
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *OutHitLocation.ToString());
-		// TODO Tell controlled tank to aim at this point
+		// Aim At
+		GetControlledTank()->AimAt(OutHitLocation);
 	}
 }
 
