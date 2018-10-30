@@ -2,6 +2,7 @@
 
 #include "TankAimingComponent.h"
 #include "GameFramework/Actor.h"
+#include "TankBarrel.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -15,14 +16,14 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
 
 void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed)
 {	
-	if (!Barrel) { return; }
+	if (!Barrel) { UE_LOG(LogTemp, Warning, TEXT("No Barrel Found")); return; }
 
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
@@ -41,6 +42,7 @@ void UTankAimingComponent::AimAt(FVector OutHitLocation, float LaunchSpeed)
 		MoveBarrelTowards(AimDirection);
 	}
 	// If no solution found do nothing
+	//UE_LOG(LogTemp, Warning, TEXT("No Aim Solution Found"));
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
@@ -49,9 +51,8 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	UE_LOG(LogTemp, Warning, TEXT("AimAsRotator: %s"), *AimAsRotator.ToString());
 	
-	// Move the barrel the right amount this frame
-	// Given a max elevation speed and the frame time
+	//UE_LOG(LogTemp, Warning, TEXT("Moving Barrel Towards"));
+	Barrel->Elevate(5); // TODO Remove magic number
 }
 
