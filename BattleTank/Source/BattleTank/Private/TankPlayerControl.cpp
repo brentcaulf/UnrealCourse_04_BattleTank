@@ -19,7 +19,6 @@ void ATankPlayerControl::Tick(float DeltaTime)
 	//Super
 	Super::Tick(DeltaTime);
 	AimTowardsCrosshair();
-	//UE_LOG(LogTemp, Warning, TEXT("Player Tank is at: %s"), *(GetControlledTank()->GetActorLocation().ToString()));
 }
 	
 
