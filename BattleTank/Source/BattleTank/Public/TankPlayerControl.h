@@ -14,9 +14,12 @@ UCLASS()
 class BATTLETANK_API ATankPlayerControl : public APlayerController
 {
 	GENERATED_BODY()
+
+protected:
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	ATank* GetControlledTank() const;
 	
 private:
-	ATank* GetControlledTank() const;
 	
 	virtual void BeginPlay() override;
 
