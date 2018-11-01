@@ -10,7 +10,6 @@ void ATankPlayerControl::BeginPlay()
 	Super::BeginPlay();
 
 	GetControlledTank();
-	UE_LOG(LogTemp, Warning, TEXT("%s is the player's controlled pawn"), *(GetControlledTank()->GetName()));
 }
 
 //Tick
