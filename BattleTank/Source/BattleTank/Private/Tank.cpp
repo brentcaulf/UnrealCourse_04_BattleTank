@@ -39,6 +39,8 @@ void ATank::Fire()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay(); // Needed for BP Begin Play to run on child classes
+
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 
