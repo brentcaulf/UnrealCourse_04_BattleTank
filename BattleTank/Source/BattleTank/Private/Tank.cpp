@@ -4,16 +4,20 @@
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "Engine/World.h"
-#include "TankAimingComponent.h"
 
 
-// Sets default values
+// Sets default values (constructor)
 ATank::ATank()
 {
 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+// Called when the game starts or when spawned
+void ATank::BeginPlay()
+{
+	Super::BeginPlay(); // Needed for BP Begin Play to run on child classes
+}
 
 void ATank::Fire()
 {
@@ -34,18 +38,3 @@ void ATank::Fire()
 	}
 }
 
-
-// Called when the game starts or when spawned
-void ATank::BeginPlay()
-{
-	Super::BeginPlay(); // Needed for BP Begin Play to run on child classes
-
-	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
-}
-
-
-void ATank::AimAt(FVector OutHitLocation)
-{
-	if (!ensure(TankAimingComponent)) { return; }
-	TankAimingComponent->AimAt(OutHitLocation, LaunchSpeed);
-}
