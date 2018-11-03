@@ -36,6 +36,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
 
+	EFiringState GetFiringState() const;
+
 protected:
 	// This is protected because it's being accessed by a sub-class, the TankAimingComp blueprint
 	UPROPERTY(BlueprintReadOnly, Category = State)

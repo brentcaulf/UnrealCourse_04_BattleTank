@@ -90,7 +90,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	// Barrel Elevation
 	Barrel->Elevate(DeltaRotator.Pitch);
 	
-	// Turret Rotation
+	// Turret Rotation but always yaw the shortest way
 	if (FMath::Abs(DeltaRotator.Yaw) < 180)
 	{
 		Turret->Rotate(DeltaRotator.Yaw);
@@ -132,4 +132,9 @@ void UTankAimingComponent::Fire()
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
 	}
+}
+
+EFiringState UTankAimingComponent::GetFiringState() const
+{
+	return FiringState;
 }
