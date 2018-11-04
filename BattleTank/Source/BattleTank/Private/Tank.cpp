@@ -4,6 +4,11 @@
 #include "Engine/World.h"
 
 
+float ATank::GetHealthPercentage() const
+{
+	return (float)CurrentHealth / (float)StartingHealth;
+}
+
 // Sets default values (constructor)
 ATank::ATank()
 {
