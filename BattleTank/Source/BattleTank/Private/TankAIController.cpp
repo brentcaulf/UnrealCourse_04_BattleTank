@@ -29,7 +29,10 @@ void ATankAIController::SetPawn(APawn * InPawn)
 
 void ATankAIController::OnPossessedTankDeath()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Tank OnDeath recieved on TankAIController"));
+	// This is how the lecturer did it but I think it works better to call directly from the pawn
+	//if (!ensure(GetPawn())) { return; }
+	//GetPawn()->DetachFromControllerPendingDestroy();
+	GetPawn()->Destroy(); // TODO destroy AI controller also?
 }
 
 //Tick
