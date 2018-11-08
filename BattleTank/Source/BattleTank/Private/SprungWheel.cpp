@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "PhysicsEngine/PhysicsConstraintComponent.h"
 
 #include "SprungWheel.h"
+#include "PhysicsEngine/PhysicsConstraintComponent.h"
 
 
 // Sets default values
@@ -14,14 +14,14 @@ ASprungWheel::ASprungWheel()
 	MassWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Mass Wheel Constraint"));
 	SetRootComponent(MassWheelConstraint);;
 
-	Axle1 = CreateDefaultSubobject<USphereComponent>(FName("Axle"));
-	Axle1->SetupAttachment(MassWheelConstraint);
+	Axle = CreateDefaultSubobject<USphereComponent>(FName("Axle"));
+	Axle->SetupAttachment(MassWheelConstraint);
 
-	Wheel1 = CreateDefaultSubobject<USphereComponent>(FName("Wheel"));
-	Wheel1->SetupAttachment(Axle1);
+	Wheel = CreateDefaultSubobject<USphereComponent>(FName("Wheel"));
+	Wheel->SetupAttachment(Axle);
 
 	AxleWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("AxleWheelConstraint"));
-	AxleWheelConstraint->SetupAttachment(Axle1);
+	AxleWheelConstraint->SetupAttachment(Axle);
 }
 
 // Called when the game starts or when spawned
@@ -37,8 +37,8 @@ void ASprungWheel::SetupConstraint()
 	if (!GetAttachParentActor()) { return; }
 	UPrimitiveComponent* BodyRoot = Cast< UPrimitiveComponent>(GetAttachParentActor()->GetRootComponent());
 	if (!BodyRoot) { return; }
-	MassWheelConstraint->SetConstrainedComponents(BodyRoot, NAME_None, Axle1, NAME_None);
-	AxleWheelConstraint->SetConstrainedComponents(Axle1, NAME_None, Wheel1, NAME_None);
+	MassWheelConstraint->SetConstrainedComponents(BodyRoot, NAME_None, Axle, NAME_None);
+	AxleWheelConstraint->SetConstrainedComponents(Axle, NAME_None, Wheel, NAME_None);
 }
 
 // Called every frame
@@ -46,5 +46,10 @@ void ASprungWheel::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ASprungWheel::AddDrivingForce(float ForceMagnitude)
+{
+	Wheel->AddForce(Axle->GetForwardVector() * ForceMagnitude);
 }
 
